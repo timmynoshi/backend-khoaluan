@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
-from job_service import get_jobs_by_filters
-from recommend_service import recommend_jobs_by_tfidf
-from job_detail_service import get_job_details_by_ids
+from services.job_service import get_jobs_by_filters
+from services.recommend_service import recommend_jobs_by_tfidf
+from services.job_detail_service import get_job_details_by_ids
+from chatbot.chat_service import handle_chat
 
 app = Flask(__name__)
 
@@ -34,7 +35,8 @@ def get_jobs():
     }
 
     jobs = get_jobs_by_filters(id_ungvien, filters)
-    return jsonify(jobs)
+    job_details = get_job_details_by_ids(jobs)
+    return jsonify(job_details)
 
 
 @app.route("/goi-y-viec-lam", methods=["POST"])
@@ -45,7 +47,19 @@ def recommend_jobs():
     job_details = get_job_details_by_ids(results)
     return jsonify(job_details)
 
+@app.route("/chat", methods=["POST"])
+def chat_with_bot():
+    data = request.json
 
+    id_ungvien = data.get("id_ungvien")
+    message = data.get("message")
+
+    if not id_ungvien or not message:
+        return jsonify({"error": "Thiếu id_ungvien hoặc message"}), 400
+
+    response = handle_chat(id_ungvien, message)
+
+    return jsonify({"response": response})
 
 if __name__ == "__main__":
     app.run(debug=True)
