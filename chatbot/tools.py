@@ -63,6 +63,6 @@ tools = [
     Tool(
         name="GoiYViecLam",
         func=recommend_jobs_tool,
-        description="Gợi ý việc làm phù hợp cho một ứng viên dựa vào ID và thông tin đầu vào (ví dụ: 'UV01, Backend, HCM')"
+        description="Gợi ý việc làm phù hợp cho một ứng viên dựa vào ID và thông tin đầu vào (ví dụ: 'Việc làm Backend, kỹ năng Java,việc làm ở Hồ Chí Minh')"
     )
 ]

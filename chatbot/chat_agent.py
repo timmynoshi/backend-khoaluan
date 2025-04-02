@@ -40,5 +40,12 @@ agent = initialize_agent(
 
 # 📜 Hàm load lại lịch sử khi người dùng quay lại
 def load_chat_history_for(id_ungvien: str):
-    chat_history: list[BaseMessage] = get_chat_history(id_ungvien)
-    memory.chat_memory.messages = chat_history
+    try:
+        chat_history: list[BaseMessage] = get_chat_history(id_ungvien)
+        if chat_history:  # ✅ Chỉ gán nếu có dữ liệu
+            memory.chat_memory.messages = chat_history
+        else:
+            memory.clear()  # hoặc giữ nguyên bộ nhớ trống
+    except Exception as e:
+        print("⚠️ Không thể load lịch sử hội thoại:", e)
+        memory.clear()

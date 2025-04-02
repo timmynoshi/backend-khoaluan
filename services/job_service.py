@@ -122,19 +122,19 @@ def get_jobs_by_filters(id_ungvien, filters):
                 AND (@DoTuoiMax IS NULL OR CV.DoTuoi_CongViec <= @DoTuoiMax)
             ORDER BY MatchScore DESC;
         """)
-        print("FILTERS:", filters)
-        print("SQL:", query)
+        #print("FILTERS:", filters)
+        #print("SQL:", query)
         result = session.execute(query, filters)
 
-        print("RESULT KEYS:", result.keys())
+        #print("RESULT KEYS:", result.keys())
 
         # ✅ Trả lại toàn bộ thông tin của mỗi công việc
         jobs = [dict(zip(result.keys(), row)) for row in result.fetchall()]
 
         # 🖨️ In từng job xuống dòng cho dễ nhìn
-        print("JOBS FOUND:")
-        for job in jobs:
-            print(job)
+        # print("JOBS FOUND:")
+        # for job in jobs:
+        #     print(job)
 
         # 🔁 Trả về danh sách chỉ gồm ID công việc
         job_ids = [job["Id_CongViec"] for job in jobs]

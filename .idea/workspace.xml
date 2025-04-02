@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab836500-5248-40a2-988d-17cb3bd54c8f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/chatbot/chat_agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chatbot/chat_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chatbot/prompt_template.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chatbot/tools.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/lichsu_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/congty.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/diachi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/taikhoan.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ungvien.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job_detail_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/job_detail_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/job_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recommend_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/recommend_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot/chat_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot/chat_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot/tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/job_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/job_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +112,14 @@
       <workItem from="1743322092041" duration="5722000" />
       <workItem from="1743329542863" duration="6001000" />
       <workItem from="1743361329476" duration="8120000" />
+      <workItem from="1743405335065" duration="1055000" />
+      <workItem from="1743408015862" duration="3179000" />
+      <workItem from="1743413725807" duration="209000" />
+      <workItem from="1743495936306" duration="9312000" />
+      <workItem from="1743514762002" duration="5063000" />
+      <workItem from="1743521247193" duration="3071000" />
+      <workItem from="1743528314924" duration="919000" />
+      <workItem from="1743578019130" duration="14994000" />
     </task>
     <servers />
   </component>
@@ -118,7 +127,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/khoaluantestapi$khoaluantestapi.coverage" NAME="khoaluantestapi Coverage Results" MODIFIED="1743369152102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/khoaluantestapi$khoaluantestapi.coverage" NAME="khoaluantestapi Coverage Results" MODIFIED="1743593273281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/khoaluantestapi$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1743264496720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/khoaluantestapi$chat_agent.coverage" NAME="chat_agent Coverage Results" MODIFIED="1743264284446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/chatbot" />
   </component>
