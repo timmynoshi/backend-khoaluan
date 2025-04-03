@@ -10,6 +10,7 @@ from frontend.ungvien import get_thong_tin_ung_vien, update_ung_vien, get_danh_s
 from frontend.diachi import get_tinhtp, get_quanhuyen, get_phuongxa, get_full_diachi
 from frontend.congty import get_danh_sach_cong_ty, add_cong_ty,update_cong_ty, delete_cong_ty
 from frontend.taikhoan import register_tai_khoan
+from frontend.chatbot import get_lich_su_chat
 
 
 
@@ -74,6 +75,14 @@ def chat_with_bot():
     response = handle_chat(id_ungvien, message)
 
     return jsonify({"response": response})
+
+@app.route("/lich-su-chat/<id_ungvien>", methods=["GET"])
+def route_lich_su_chat(id_ungvien):
+    return get_lich_su_chat(id_ungvien)
+
+
+
+
 #------------------
 @app.route('/api/login', methods=['POST'])
 def api_login():
