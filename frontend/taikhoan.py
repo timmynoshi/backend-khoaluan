@@ -1,5 +1,10 @@
 from database import SessionLocal
 from sqlalchemy.sql import text
+import random
+import string
+
+def generate_random_id(length=10):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 def register_tai_khoan(data: dict) -> dict:
     session = SessionLocal()
@@ -17,16 +22,17 @@ def register_tai_khoan(data: dict) -> dict:
             "email": data["email"],
             "dia_chi": data["diaChi"]
         })
-
+        tai_khoan_id = generate_random_id()
         # 2. Thêm vào bảng TaiKhoan
         query_tk = text("""
-            INSERT INTO TaiKhoan (id, TaiKhoan, MatKhau, QuyenHan, Id_NguoiDung)
-            VALUES (:id, :tk, :mk, 'user', :id)
-        """)
+                    INSERT INTO TaiKhoan (id, TaiKhoan, MatKhau, QuyenHan, Id_NguoiDung)
+                    VALUES (:id, :tk, :mk, 'user', :id_ungvien)
+                """)
         session.execute(query_tk, {
-            "id": data["id"],
+            "id": tai_khoan_id,
             "tk": data["taiKhoan"],
-            "mk": data["matKhau"]
+            "mk": data["matKhau"],
+            "id_ungvien": data["id"]
         })
 
         session.commit()
