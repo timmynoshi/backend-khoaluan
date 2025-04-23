@@ -350,6 +350,9 @@ INSERT INTO CapBac VALUES (N'CaB01',N'Intern'),
 						  (N'CaB04',N'Senior')
 GO
 
+INSERT INTO CapBac VALUES (N'CaB05',N'Nhân viên')
+GO
+
 INSERT INTO KyNang VALUES (N'KN01',N'Microsoft 365'),
 						  (N'KN02',N'Amazon Web Services (AWS)'),
 						  (N'KN03',N'Adobe'),
@@ -969,7 +972,7 @@ WITH KyNang_CTE AS (
 
 
 SELECT *
-FROM LichSu
+FROM CongViec
 
 DELETE LichSu
 WHERE id='UV01'
@@ -991,3 +994,49 @@ SELECT uv.Id_UngVien, Ten_UngVien, GioiTinh_UngVien, SDT_UngVien, Email_UngVien,
             FROM UngVien uv
 
 			SELECT Id_NganhNghe, Ten_NganhNghe FROM NganhNghe
+
+
+
+
+
+
+UPDATE CongViec
+SET CapBac_CongViec = 'CaB05'
+WHERE ChuyenMon_CongViec IN (
+    SELECT Id_ChuyenMon
+    FROM ChuyenMon
+    WHERE Ten_ChuyenMon != N'Công nghệ Thông tin'
+)
+
+DELETE FROM CongViec
+WHERE Id_CongViec BETWEEN 'CV41' AND 'CV90'
+
+DELETE FROM CongViec
+WHERE Id_CongViec IN (
+    'CV91','CV92','CV93','CV94','CV95','CV96','CV97','CV98','CV99',
+    'CV100','CV101','CV102','CV103','CV104','CV105','CV106','CV107','CV108','CV109',
+    'CV110','CV111','CV112','CV113','CV114','CV115','CV116','CV117','CV118','CV119',
+    'CV120','CV121','CV122','CV123','CV124','CV125','CV126','CV127','CV128','CV129',
+    'CV130','CV131','CV132','CV133','CV134','CV135','CV136','CV137','CV138','CV139',
+    'CV140'
+);
+
+
+SELECT CV.Id_CongViec, CV.Ten_CongViec,
+       CV.MucLuong_CongViec, CB.Ten_CapBac,
+       VT.Ten_ViTri, TP.Ten_TinhTP,
+       ISNULL(KN.DanhSachKyNang, '') AS KyNang
+FROM   CongViec CV
+       JOIN ViTriChuyenMon VT ON CV.ViTri_CongViec = VT.Id_ViTri
+       JOIN PhuongXa PX        ON CV.KhuVuc_CongViec = PX.Id_PhuongXa
+       JOIN QuanHuyen QH       ON PX.Id_QuanHuyen    = QH.Id_QuanHuyen
+       JOIN TinhTP    TP       ON QH.Id_TinhTP       = TP.Id_TinhTP
+       JOIN CapBac    CB       ON CV.CapBac_CongViec = CB.Id_CapBac
+       LEFT JOIN (
+         SELECT Id_CongViec, STRING_AGG(KN.Ten_KyNang, ', ') AS DanhSachKyNang
+         FROM   ChiTietKyNang CTK JOIN KyNang KN ON CTK.Id_KyNang = KN.Id_KyNang
+         GROUP BY Id_CongViec
+       ) KN ON CV.Id_CongViec = KN.Id_CongViec
+
+SELECT *
+FROM 

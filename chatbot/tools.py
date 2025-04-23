@@ -41,18 +41,31 @@ def recommend_jobs_tool(input_str: str) -> str:
         if not matched:
             return "Rất tiếc, hiện tại tôi chưa tìm được việc làm nào phù hợp với yêu cầu bạn nêu."
 
+
+
         result_lines = []
         for job, score in matched:
             line = (
                 f"- Tên công việc: {job['Ten_CongViec']} tại {job['Ten_CongTy']}\n"
                 f"  Địa điểm: {job['Ten_QuanHuyen']}, {job['Ten_TinhTP']}\n"
-                f"  Vị trí chuyên môn: {job['Ten_ViTri']}\n"
+                f"  Vị trí chuyên môn: {job['Ten_Vi`Tri']}\n"
                 f"  Mức lương: {job['MucLuong_CongViec']} VND\n"
                 f"  Kỹ năng yêu cầu: {job['DanhSachKyNang'] or 'Không yêu cầu rõ'}\n"
                 f"  Điểm khớp: {score:.2f}\n"
             )
             result_lines.append(line)
 
+            # Hiển thị các từ khóa đã lọc ra bởi TF-IDF
+        print("\n🧠 Các từ vựng (vocabulary) TF-IDF đã chọn:")
+        for i, word in enumerate(vectorizer.get_feature_names_out()):
+            print(f"{i + 1:02d}: {word}")
+
+        # Hiển thị vector TF-IDF của câu input người dùng
+        print("\n📈 Vector TF-IDF của input người dùng:")
+        input_vector = tfidf_matrix[0].toarray()[0]
+        for idx, value in enumerate(input_vector):
+            if value > 0:
+                print(f"{vectorizer.get_feature_names_out()[idx]}: {value:.4f}")
         return "### DANH_SACH_CONG_VIEC:\n" + "\n\n".join(result_lines)
 
     except Exception as e:

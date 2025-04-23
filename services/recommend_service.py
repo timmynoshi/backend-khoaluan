@@ -2,13 +2,14 @@ from sqlalchemy import text
 from database import SessionLocal
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from collections import OrderedDict
 
-def recommend_jobs_by_tfidf(id_ungvien, top_n=5):
+def recommend_jobs_by_tfidf(id_ungvien, top_n=10):
     session = SessionLocal()
     try:
-        # B1: Lấy 5 log tìm kiếm gần nhất từ bảng FilterUV của ứng viên
+        # B1: Lấy 3 log tìm kiếm gần nhất từ bảng FilterUV của ứng viên
         query_log = text("""
-            SELECT TOP 5 * FROM FilterUV
+            SELECT TOP 3 * FROM FilterUV
             WHERE Id_UngVien = :id_ungvien
             ORDER BY ThoiGian DESC
         """)
@@ -24,28 +25,37 @@ def recommend_jobs_by_tfidf(id_ungvien, top_n=5):
             "QuanHuyen", "TinhTP"
         ]
 
-        # Trọng số theo thời gian (log mới hơn ưu tiên hơn)
-        weights = [1.0, 0.8, 0.6, 0.4, 0.2]
-        filter_weighted_parts = []
-        target_tinhtp = set()
+        # Gộp text của các lần tìm kiếm, bỏ trùng lặp, giữ thứ tự
+        filter_tokens = []
 
-        for i, row in enumerate(filters):
+        for row in filters:
             row_dict = dict(row._mapping)
-            text_content = " ".join(str(row_dict[col]).strip() for col in important_fields if col in row_dict and row_dict[col])
-            weight = weights[i] if i < len(weights) else 0.2
-            multiplier = int(weight * 5)
-            weighted_text = (text_content + " ") * multiplier
-            filter_weighted_parts.append(weighted_text.strip())
+            parts = [
+                str(row_dict[col]).strip()
+                for col in important_fields
+                if col in row_dict and row_dict[col]
+            ]
+            filter_tokens.extend(parts)
 
-            # Lưu tỉnh/thành để lọc job theo vùng
+        # Loại trùng, giữ thứ tự xuất hiện đầu tiên
+        seen = set()
+        unique_tokens = [x for x in filter_tokens if not (x in seen or seen.add(x))]
+
+        filter_text = " ".join(unique_tokens)
+
+        # Lưu tỉnh/thành để lọc job theo vùng
+        target_tinhtp = set()
+        for row in filters:
+            row_dict = dict(row._mapping)
             if "TinhTP" in row_dict and row_dict["TinhTP"]:
                 for tp in row_dict["TinhTP"].split(","):
                     target_tinhtp.add(tp.strip())
 
-        filter_text = " ".join(filter_weighted_parts)
         if not filter_text.strip():
             return {"error": "Không có đủ thông tin tìm kiếm để gợi ý."}
 
+        print("\n🔍 Filter summary (user profile):")
+        print(filter_text)
         # B2: Truy vấn công việc (chỉ lấy tên mô tả, không lấy ID)
         query_jobs = text("""
             SELECT 

@@ -15,7 +15,7 @@ llm = ChatOpenAI(
     openai_api_base="http://localhost:1234/v1",  # tuỳ cấu hình của bạn
     openai_api_key="not-needed",
     model_name="local-model",
-    temperature=0.7,
+    temperature=1,
 )
 
 # 🧠 Bộ nhớ hội thoại
