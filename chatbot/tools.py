@@ -48,7 +48,7 @@ def recommend_jobs_tool(input_str: str) -> str:
             line = (
                 f"- Tên công việc: {job['Ten_CongViec']} tại {job['Ten_CongTy']}\n"
                 f"  Địa điểm: {job['Ten_QuanHuyen']}, {job['Ten_TinhTP']}\n"
-                f"  Vị trí chuyên môn: {job['Ten_Vi`Tri']}\n"
+                f"  Vị trí chuyên môn: {job['Ten_ViTri']}\n"
                 f"  Mức lương: {job['MucLuong_CongViec']} VND\n"
                 f"  Kỹ năng yêu cầu: {job['DanhSachKyNang'] or 'Không yêu cầu rõ'}\n"
                 f"  Điểm khớp: {score:.2f}\n"
